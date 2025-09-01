@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="robots" content="noindex">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brandon | Private Global Portfolio</title>
+  <!-- Google Fonts: Mckinsey style fonts -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Lato:400,700&display=swap">
+  <style>
+    /* elegant and dark Color Palette */
+	:root {
+  --primary: #181C24;         /* Deep Indigo Black */
+  --secondary: #382B71;       /* Regal Violet */
+  --accent: #F8D678;          /* Rich Gold */
+  --light-bg: #151821;        /* Charcoal Black */
+  --text-dark: #FFF;          /* Pure White */
+  --text-light: #B5B8BF;      /* Silvery Gray */
+  --card-bg: #202634;         /* Deep Charcoal */
+  --shadow: 0 2px 12px rgba(40,40,40,0.15);
+  --border-radius: 12px;
+}
+body {
+  font-family: 'Open Sans', 'Lato', Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: var(--light-bg);
+  color: var(--text-dark);
+  min-height: 100vh;
+}
+header {
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  color: #fff;
+  padding: 40px 0 20px 0;
+  box-shadow: var(--shadow);
+  text-align: center;
+}
+header .private-label {
+  font-size: 0.9em;
+  background: var(--accent);
+  color: var(--primary);
+  padding: 3px 12px;
+  border-radius: 18px;
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+  display: inline-block;
+  font-weight: bold;
+}
+nav {
+  margin: 18px 0 0 0;
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+}
+nav a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1.06em;
+  letter-spacing: .5px;
+  transition: background .2s, color .2s;
+  padding: 8px 16px;
+  border-radius: 7px;
+  background: transparent;
+}
+nav a:hover, nav a.active {
+  background: var(--accent);
+  color: var(--primary);
+}
+.container {
+  max-width: 980px;
+  margin: 40px auto 40px auto;
+  padding: 0 24px;
+}
+section {
+  display: none;
+  animation: fadeIn .6s;
+}
+section.active { display: block; }
+/* Card Styling */
+.card {
+  background: var(--card-bg);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  margin-bottom: 32px;
+  padding: 26px 20px;
+  transition: box-shadow .20s, transform .2s;
+  position: relative;
+}
+.card:hover {
+  box-shadow: 0 4px 28px 2px rgba(153,132,51, 0.17);
+  transform: translateY(-2px) scale(1.02);
+}
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+.badge {
+  background: var(--accent);
+  color: var(--primary);
+  border-radius: 9px;
+  padding: 3px 10px 3px 10px;
+  font-size: .91em;
+  display: inline-block;
+  margin: 0 2px 0 0;
+  font-weight: bold;
+  margin-bottom: 2px;
+}
+h1, h2 {
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+  color: var(--accent);
+}
+h2 {
+  border-bottom: 2px solid var(--accent);
+  padding-bottom: 5px;
+  margin-top: 34px;
+}
+h3 {
+  color: var(--accent);
+  font-weight: 700;
+}
+.text-muted { color: var(--text-light); }
+ul, li { color: var(--text-light); }
+/* Accordion styles */
+.accordion {
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  background: var(--card-bg);
+  margin: 20px 0;
+}
+.accordion-item + .accordion-item {
+  border-top: 1px solid #383A46;
+}
+.accordion-header {
+  padding: 16px 20px;
+  cursor: pointer;
+  font-weight: 700;
+  background: var(--card-bg);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--accent);
+  border-radius: var(--border-radius) var(--border-radius) 0 0;
+  user-select: none;
+  transition: background .12s;
+}
+.accordion-header:hover {
+  background: #232633;
+}
+.accordion-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .45s ease;
+  padding: 0 20px;
+  background: #232633;
+  color: var(--text-light);
+}
+.accordion-item.active .accordion-body {
+  padding: 14px 20px 18px 20px;
+  max-height: none;
+  transition: max-height .6s;
+}
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+}
+.portfolio-card {
+  background: var(--card-bg);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  padding: 17px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: box-shadow .18s, transform .15s;
+  min-height: 280px;
+  text-align: center;
+}
+.portfolio-card:hover {
+  box-shadow: 0 4px 38px 6px rgba(248,214,120,0.10), 0 1.5px 6px 0px rgba(50,50,60,0.08);
+  transform: translateY(-2.5px) scale(1.03);
+}
+.portfolio-card img {
+  width: 74px;
+  height: 74px;
+  object-fit: cover;
+  border-radius: 36px;
+  margin-bottom: 16px;
+  border: 2px solid var(--secondary);
+  background: #232633;
+}
+.portfolio-card .badges {
+  justify-content: center;
+}
+.modal {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: rgba(24,28,36, 0.75);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  transition: background .22s;
+}
+.modal.active { display: flex; }
+.modal-content {
+  background: var(--card-bg);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  padding: 36px 32px 32px 32px;
+  max-width: 370px;
+  width: 90%;
+  position: relative;
+  text-align: center;
+  color: var(--text-dark);
+}
+.modal-content h2 {
+  color: var(--accent);
+  margin-top: 0;
+}
+.modal-content .close {
+  position: absolute;
+  top: 13px;
+  right: 20px;
+  background: none;
+  border: none;
+  font-size: 1.3em;
+  color: var(--accent);
+  cursor: pointer;
+}
+.modal-content form input, .modal-content form textarea {
+  width: 100%;
+  margin: 12px 0;
+  padding: 7px;
+  border-radius: 7px;
+  border: 1px solid #383A46;
+  font-size: 1em;
+  font-family: inherit;
+  background: #232633;
+  color: var(--text-dark);
+  resize: vertical;
+}
+.modal-content form button {
+  background: var(--accent);
+  color: var(--primary);
+  border: none;
+  padding: 9px 24px;
+  border-radius: 9px;
+  font-size: 1.05em;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background .18s;
+  margin-top: 7px;
+}
+.modal-content form button:hover {
+  background: var(--secondary);
+  color: #fff;
+}
+/* General utility */
+.flex-row { display: flex; gap: 16px; flex-wrap: wrap; }
+.mt-18 { margin-top: 18px; }
+.mb-14 { margin-bottom: 14px; }
+/* Responsive */
+@media (max-width:600px){
+  .container{padding:0 5vw;}
+  .portfolio-grid {grid-template-columns: 1fr;}
+}
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0);}
+}
+
+
+  </style>
+</head>
+<body>
+  <header>
+    <div class="private-label">PRIVATE SITE</div>
+    <h1>Brandon Isaac Paek : Portfolio &amp; Achievements</h1>
+    <div style="font-size:1.07em;margin-bottom:12px;">Showcasing growth, impact, and innovation – by invite only</div>
+    <nav>
+      <a href="#" class="active" data-section="about">About</a>
+      <a href="#" data-section="portfolio">Portfolio</a>
+      <a href="#" data-section="resume">Resume</a>
+      <a href="#" data-section="research">Research</a>
+      <a href="#" data-section="volunteering">Volunteering</a>
+      <a href="#" data-section="clubs">Clubs &amp; Leadership</a>
+      <a href="#" data-section="contact">Contact</a>
+    </nav>
+  </header>
+
+  <div class="container">
+    <!-- About -->
+    <section id="about" class="active">
+      <div class="card" style="display:flex;align-items:center;gap:32px;flex-wrap:wrap;">
+        <img src="https://images.unsplash.com/photo-1518976024611-4887c1aa67be?fit=crop&w=164&q=80" alt="Student Portrait" style="border-radius:50%;width:99px;height:99px;object-fit:cover;box-shadow:0 3px 12px rgba(32,55,70,0.13)">
+        <div>
+          <h2>About Brandon</h2>
+          <div>
+            Driven interdisciplinary student with a passion for research, music, STEM, law, and service.<br>
+            Consistently awarded for excellence in cello, engineering, leadership, and academics.<br>
+            Actively seeks global opportunities to learn, contribute, and innovate.
+          </div>
+          <div class="badges mt-18">
+            <div class="badge">4.0 GPA</div>
+            <div class="badge">2026 Grad</div>
+            <div class="badge"> Research, Red Cross, CNA, Phlebotomist, STEM &amp; Music </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="portfolio">
+  <h2>Portfolio Highlights</h2>
+  <div class="portfolio-grid">
+     <!-- Research Card -->
+    <div class="portfolio-card">
+      <img src="https://www.timeshighereducation.com/sites/default/files/styles/the_breaking_news_image_style/public/laboratory-beaker-with-face-and-suprised-expression.jpg?itok=X-sdcB4L" alt="Research">
+      <h3>Research Experience</h3>
+      <div class="text-muted mb-14">Scientific inquiry, experimentation, and bioinformatics.</div>
+      <div class="badges">
+        <div class="badge">Neuropharmacology</div>
+        <div class="badge">Environmental Science</div>
+        <div class="badge">Genomics</div>
+      </div>
+      <ul style="text-align:left;font-size:0.97em;">
+        <li>
+          <strong>Neuropharmacology Internship</strong>: Lee Laboratory, FAMU (2025–present)
+          <ul>
+            <li>Developed polyacrylamide gels for protein research</li>
+            <li>Poster: Manganese suppression of dopamine synthesis in neuronal cells</li>
+          </ul>
+        </li>
+        <li>
+          <strong>UF Research Explorations</strong>: Environmental Sciences (2024)
+          <ul>
+            <li>Poster: Use of <em>C. Elegans</em> as Bioindicators</li>
+          </ul>
+        </li>
+        <li>
+          <strong>FSU Young Scholars Program</strong>: Biosciences (2025)
+          <ul>
+            <li>Researched nitrate coagulation mediums for water treatment</li>
+            <li>Built ML model to predict significant SNPs in human genome</li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <!-- Music -->
+    <div class="portfolio-card">
+      <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?fit=crop&w=600&q=80" alt="Cello Performance">
+      <h3>Cello &amp; Music</h3>
+      <div class="text-muted mb-14">Award-winning soloist and ensemble musician.</div>
+      <div class="badges">
+        <div class="badge">Intl. 1st Place x2</div>
+        <div class="badge">Orchestra Soloist</div>
+      </div>
+      <ul style="text-align:left;font-size:0.97em;">
+        <li>Charleston Int’l Music Competition: Multiple 1st &amp; 2nd places (2023–2024)</li>
+        <li>Performed with BBCO as Young Artist (2024)</li>
+        <li>Multiple prizes at Vivaldi Intl. Music Competition</li>
+      </ul>
+    </div>
+    <!-- Red Cross -->
+    <div class="portfolio-card">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/e/ee/Red_Cross_icon.svg" alt="Red Cross">
+      <h3>Red Cross &#9679; Certified Nurse Assistant (CNA) &#9679; Phlebotomist</h3>
+      <div class="text-muted mb-14">CNA Board Exam Passed</div>
+      <div class="text-muted mb-14">President and Successfully Re-Established the Red Cross Club at Lawton Chiles High</div>
+      <div class="badges">
+        <div class="badge">Created Red Cross School Club Website</div>
+        <div class="badge">Fundraised for global health initiatives</div>
+      </div>
+      <ul style="text-align:left;font-size:0.97em;">
+        <li>Revived and led the re-launch of my high school’s Red Cross Club as founding president</li>
+        <li>Volunteered in local Red Cross events and emergency response efforts</li>
+        <li>Connected with the Southern local Red Cross region for approval and support</li>
+      </ul>
+    </div>
+	<!-- Academic Excellence -->
+    <div class="portfolio-card">
+      <img src="https://images.unsplash.com/photo-1517520287167-4bbf64a00d66?fit=crop&w=600&q=80" alt="Academics">
+      <h3>Academic Excellence</h3>
+      <div class="text-muted mb-14">Top scores and school representation in competitions.</div>
+      <div class="badges">
+        <div class="badge">FSA ELA Perfect</div>
+        <div class="badge">Chemistry Olympiad</div>
+        <div class="badge">History Fair</div>
+      </div>
+      <ul style="text-align:left;font-size:0.97em;">
+        <li>Grade 10 FSA ELA: Perfect Score (2025)</li>
+        <li>Chemistry Olympiad School Rep</li>
+        <li>County History Fair finalist</li>
+      </ul>
+    </div>
+    <!-- Engineering -->
+    <div class="portfolio-card">
+      <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?fit=crop&w=600&q=80" alt="Robotics/Engineering">
+      <h3>Engineering &amp; Robotics</h3>
+      <div class="text-muted mb-14">Proven teamwork and innovation in national competitions.</div>
+      <div class="badges">
+        <div class="badge">State Finalist</div>
+        <div class="badge">NASA Natl. 2nd</div>
+        <div class="badge">1st Multiple Meets</div>
+      </div>
+      <ul style="text-align:left;font-size:0.97em;">
+        <li>2nd place NASA National Student Astronaut Eng. Challenge (2025)</li>
+        <li>Multiple 1st place AeroCost Robotics Meets (2024–2025)</li>
+        <li>FIRST Robotics team member</li>
+      </ul>
+    </div>
+    <!-- Debate -->
+    <div class="portfolio-card">
+      <img src="https://images.unsplash.com/photo-1453928582365-b6ad33cbcf64?fit=crop&w=600&q=80" alt="Speech & Debate">
+      <h3>Teen Attorney &amp; Debate</h3>
+      <div class="text-muted mb-14">Clear, confident public speaker and award winner.</div>
+      <div class="badges">
+        <div class="badge">Teen Attorney</div>
+        <div class="badge">1st Place Impromptu</div>
+        <div class="badge">Best Delegate</div>
+      </div>
+      <ul style="text-align:left;font-size:0.97em;">
+        <li>Teen Court: Multiple service awards</li>
+        <li>NWFCDI Debate: 1st Place Impromptu Speaking (2024)</li>
+        <li>UNMODEL: Best Delegate (2024)</li>
+      </ul>
+    </div>
+	<!-- Art -->
+    <div class="portfolio-card">
+      <img src="https://images.unsplash.com/photo-1464983953574-0892a716854b?fit=crop&w=600&q=80" alt="Art/Design">
+      <h3>Art &amp; Design</h3>
+      <div class="text-muted mb-14">Expressing ideas through design and community arts.</div>
+      <div class="badges">
+        <div class="badge">Logo Finalist</div>
+      </div>
+      <ul style="text-align:left;font-size:0.97em;">
+        <li>Autism &amp; Neurodiversity Logo Challenge, County Runner-Up</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+    <!-- Resume (Accordion) -->
+    <section id="resume">
+      <h2>Resume</h2>
+      <div class="accordion">
+        <!-- Education -->
+        <div class="accordion-item">
+          <div class="accordion-header">Education</div>
+          <div class="accordion-body">
+            <strong>High School Diploma</strong> <br>
+            Lawton Chiles High School, Tallahassee, FL (2022–2026)<br>
+            <span class="badge">4.0 GPA</span>
+          </div>
+        </div>
+        <!-- Extracurriculars -->
+        <div class="accordion-item">
+          <div class="accordion-header">Extracurriculars</div>
+          <div class="accordion-body">
+            <strong>Cello (Music)</strong> (2018–present)
+		<ol>
+		<li>
+		Charleston music international competition – <strong>1st place (the first winner)</strong> in the age 14 group for the 2023 Baroque Music Competition (Cello)
+			<br>
+			<a href="https://www.youtube.com/watch?v=psNSoiDXSE0" target="_blank">Performance Video</a>
+		</li>
+		<li>Served as a cellist in the All-District Orchestra for the years 2023 and 2024</li>
+		<li>
+			2023–2024 Big Bend Community Orchestra (BBCO) Young Artist Competition – <strong>1st place (the first winner)</strong> for category age 15–18, received $100 cash reward, and performed with the BBCO at the April 27, 2024 concert.
+			<br>
+			<a href="https://bigbendcommunityorchestra.org" target="_blank">Young Artists (bigbendcommunityorchestra.org)</a>
+		</li>
+		<li>
+			Charleston music international competition – <strong>1st place (the first winner)</strong> in the age 15 group for the 2024 Baroque Music Competition (Cello)
+			<br>
+			<a href="https://www.youtube.com/watch?v=D9Askp0dmGY" target="_blank">Performance Video</a>
+		</li>
+		<li>
+			Charleston music international competition – <strong>2nd place</strong> in the age 16 group for the 19th Century Music Competition 2024 (Cello)
+			<br>
+			<a href="https://www.youtube.com/watch?v=8OU1ymaKk-g" target="_blank">Performance Video</a>
+		</li>
+		<li>
+			Vivaldi International Music Competition 2024 Season 2 – <strong>2nd prize</strong> in category Young Artist (AGE 14–17) Cello
+		</li>
+		</ol>
+            <strong>Teen Court (Teen Attorney)</strong> (2022–present)<br>
+            <span class="badge">Outstanding/Positive/Brightest Service Awards</span>
+            <br><br>
+            <strong> (Team Achievements) NASA Space National Competition | Advanced to State-Level Robotics Competition </strong> (2023–present)
+            <ul>
+              <li>NASA National Student Astronaut Eng. Challenge: 2nd Place (2025)</li>
+              <li>AeroCost Meets: Multiple 1st Places & State-Level Finalist (2025)</li>
+            </ul>
+            <strong>Art:</strong> Autism & Neurodiversity Logo Challenge, Runner-Up (2023)
+            <br>
+            <strong>Speech and Debate:</strong> 1st Place Impromptu, NWFCDI (2024)
+          </div>
+        </div>
+        <!-- Volunteering -->
+        <div class="accordion-item">
+          <div class="accordion-header">Volunteering</div>
+          <div class="accordion-body">
+            <ul style="margin-bottom:0;">
+              <li>Nursing Assistant clinical hours in rehabilitation (long-term & short-term cares) (2025–2026)</li>
+              <li>Tallahassee Memorial Hospital patient care (2024)</li>
+              <li>Teen Court attorney(2022–present)</li>
+			  <li>Cello performances and one-on-one companionship for nursing home residents (2022–present)</li>
+              <li>Food program and Alzheimer’s Project volunteer</li>
+            </ul>
+          </div>
+        </div>
+        <!-- Skills -->
+        <div class="accordion-item">
+          <div class="accordion-header">Skills & Certifications</div>
+          <div class="accordion-body">
+            <ul style="margin-bottom:0;">
+              <li><span class="badge">Certified Nurse Assistant (CNA) (2005), Phlebotomist (2026/2025 expected)</span></li>
+              <li>CPR & First Aid (2023)</li>
+              <li>Programming: C++, Python, Javascript, HTML</li>
+              <li>Team leadership, speech, writing </li>
+              <li>Kendo • Rock Climbing • Tennis</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Research (Accordion) -->
+    <section id="research">
+      <h2>Research</h2>
+      <div class="accordion">
+        <div class="accordion-item">
+          <div class="accordion-header">Neuropharmacology Internship</div>
+          <div class="accordion-body">
+            Lee Laboratory, Florida A&amp;M University<br>
+            <em>Intern (2025–present); Shadowing (2024–2025)</em>
+            <ul>
+              <li>Developed polyacrylamide gels for protein research.</li>
+              <li>Poster on Manganese suppression of dopamine synthesis in neuronal cells.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <div class="accordion-header">UF Research Explorations</div>
+          <div class="accordion-body">
+            <em>Environmental Sciences Track (2024)</em>
+            <ul>
+              <li>Poster: Use of <em>C. Elegans</em> as Bioindicators.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <div class="accordion-header">FSU Young Scholars Program</div>
+          <div class="accordion-body">
+            <em>Biosciences (2025)</em>
+            <ul>
+              <li>Researched nitrate coagulation mediums for water treatment.</li>
+              <li>Built supervised ML model to predict significant SNPs in human genome.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Volunteering -->
+    <section id="volunteering">
+      <h2>Volunteering &amp; Service</h2>
+      <div class="card">
+        <ul style="margin-bottom:10px;">
+          <li>Clinical service in rehabilitation, hospital wards (nursing support, 2025–2026)</li>
+          <li>Music performance for elderly at nursing homes</li>
+          <li>Food sorting for Second Harvest programs</li>
+          <li>Alzheimer's Project: Respite care for patients with dementia</li>
+        </ul>
+        <div class="badges">
+          <div class="badge">Community Impact</div>
+          <div class="badge">Clinical Hours</div>
+          <div class="badge">Team Leadership</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Clubs & Leadership -->
+    <section id="clubs">
+      <h2>Clubs &amp; Leadership</h2>
+      <div class="card">
+        <ul>
+          <li>
+            <strong>Lawton Chiles Red Cross Club:</strong> Founder &amp; President. Recruited 20+ members, led campaigns for fire safety and charity (2023–2024).
+          </li>
+          <li>
+            <strong>National Student Astronaut Challenge:</strong> Co-founder &amp; Co-president (2024–present). National-level STEM engagement.
+          </li>
+          <li>
+            <strong>FIRST Robotics (FTC):</strong> Team member; Coding, outreach, mechanical build (2021–present).
+          </li>
+          <li>
+            <strong>Model United Nations:</strong> Treasurer, Best Delegate – RaiderMUN 2024.
+          </li>
+          <li>
+            <strong>Chicken Math YouTube Channel:</strong> Co-founder &amp; creator of AP Pre-Calculus lessons (2024–present).
+          </li>
+        </ul>
+        <div class="badges">
+          <div class="badge">Founder</div>
+          <div class="badge">President</div>
+          <div class="badge">Co-President</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact">
+      <div class="card" style="text-align:center;">
+        <h2>Contact Brandon</h2>
+        <div style="font-size:1.10em;color:var(--text-light);margin-bottom:13px;">
+          Interested in Brandon’s work or collaborations? Send a private message below.
+        </div>
+        <button id="openModal" style="background:var(--accent);color:#fff;border:none;padding:10px 20px;border-radius:8px;font-size:1.08em;cursor:pointer;">Open Private Contact Form</button>
+      </div>
+    </section>
+  </div>
+
+  <!-- Modal Contact Form -->
+  <div class="modal" id="contactModal">
+    <div class="modal-content">
+      <button class="close" id="closeModal">&times;</button>
+      <h2>Private Contact Form</h2>
+      <form id="privateContactForm" autocomplete="off">
+        <input type="text" name="name" placeholder="Your Name (required)" required>
+        <input type="email" name="email" placeholder="Your Email (required)" required>
+        <textarea name="message" rows="4" placeholder="Your Message..." required></textarea>
+        <button type="submit">Send Message</button>
+        <div style="color:var(--accent);display:none;padding:16px;text-align:center;" id="contactMsg">Thank you — your message was received privately!</div>
+      </form>
+    </div>
+  </div>
+
+  <footer style="text-align:center;padding:25px 8px;color:var(--text-light);background:#f0f4fa;">
+    <div>
+      <span class="private-label" style="position:relative;top:0;">PRIVATE ACCESS ONLY</span>
+      <br>
+      Portfolio of Brandon (2025). Private preview site – not for public distribution.
+    </div>
+    <div style="margin-top:8px;font-size:0.95em;">Web address (private): <strong>Brandon-portfolio-2025.private</strong></div>
+  </footer>
+
+  <script>
+    // SPA navigation
+    const navLinks = document.querySelectorAll('nav a');
+    const sections = document.querySelectorAll('section');
+    navLinks.forEach(link => {
+      link.onclick = function(e) {
+        e.preventDefault();
+        navLinks.forEach(l=>l.classList.remove('active'));
+        link.classList.add('active');
+        sections.forEach(sec => sec.classList.remove('active'));
+        const target = document.getElementById(link.dataset.section);
+        if(target) target.classList.add('active');
+        window.scrollTo({top:0,behavior:"smooth"});
+      }
+    });
+
+    // Accordion Interactivity
+    const accHeaders = document.querySelectorAll('.accordion-header');
+	accHeaders.forEach(head => {
+	  head.onclick = function () {
+		const item = head.parentElement;
+		const body = item.querySelector('.accordion-body');
+
+		if (item.classList.contains('active')) {
+		// Close item
+			body.style.maxHeight = null;
+			item.classList.remove('active');
+		} else {
+			// Close other opened items if you want single open at a time
+			document.querySelectorAll('.accordion-item.active').forEach(openItem => {
+				openItem.classList.remove('active');
+				openItem.querySelector('.accordion-body').style.maxHeight = null;
+			});
+			// Open clicked item
+			item.classList.add('active');
+			body.style.maxHeight = body.scrollHeight + "px";
+			}
+		}
+	});
+
+    // Contact Modal Interactivity
+    const modal = document.getElementById('contactModal');
+    document.getElementById('openModal').onclick = ()=>modal.classList.add('active');
+    document.getElementById('closeModal').onclick = ()=>modal.classList.remove('active');
+
+    // Handle contact form submission
+    const form = document.getElementById('privateContactForm');
+    if(form){
+      form.onsubmit = function(e){
+        e.preventDefault();
+        // Prevent real transmission; show simulated privacy success
+        document.getElementById('contactMsg').style.display = 'block';
+        setTimeout(()=>{
+          modal.classList.remove('active');
+          document.getElementById('contactMsg').style.display = 'none';
+        }, 1900);
+        form.reset();
+      }
+    }
+  </script>
+</body>
+</html>
